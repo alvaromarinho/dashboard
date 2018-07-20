@@ -1,0 +1,7 @@
+<form (ngSubmit)="submit()" #formSignIn="ngForm" novalidate>
+    <input class="input" type="text" placeholder="Email" [(ngModel)]="username" name="username">
+    <input class="input" type="password" placeholder="Password" [(ngModel)]="password" name="password">
+    <button type="submit" class="button is-primary" [ngClass]="{'is-loading':load}">
+        <i class="fa fa-fw fa-sign-in"></i>Sign in
+    </button>
+</form>
