@@ -11,6 +11,7 @@ export class AuthComponent implements OnInit {
 
     username: string;
     password: string;
+    load: boolean;
 
     constructor(
         private authService: AuthService,
@@ -27,7 +28,9 @@ export class AuthComponent implements OnInit {
     }
 
     submit() {
+        this.load = true;
         this.authService.auth(this.username, this.password).subscribe(() => {
+            this.load = false;
             this.route.queryParams.subscribe((params) =>
                 params['returnUrl']
                     ? this.router.navigate([params['returnUrl']])
