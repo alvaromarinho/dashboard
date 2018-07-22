@@ -1,0 +1,29 @@
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="http://bulma.io" target="_blank">
+            <img src="https://bulma.io/images/bulma-logo-white.png" alt="Bulma CSS framework" width="112" height="28">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" (click)="open()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+    <div class="navbar-menu {{active}}">
+        <div class="navbar-start"></div>
+        <div class="navbar-end">
+            <a class="navbar-item is-hidden-desktop" routerLink="/">
+                <span class="icon"><i class="fa fa-fw fa-home"></i></span>
+                <span>Home</span>
+            </a>
+            <a class="navbar-item is-hidden-desktop" routerLink="/post">
+                <span class="icon"><i class="fa fa-fw fa-th-list"></i></span>
+                <span>Post</span>
+            </a>
+            <a class="navbar-item" routerLink="/logout">
+                <span class="icon"><i class="fa fa-fw fa-power-off"></i></span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+</nav>

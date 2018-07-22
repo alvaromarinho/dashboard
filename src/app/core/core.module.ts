@@ -9,6 +9,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 
 import { AppRoutingModule } from '../app-routing.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   providers: [
@@ -23,11 +24,13 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   declarations: [
     HomeComponent,
-    AuthComponent
+    AuthComponent,
+    NavbarComponent
   ],
   exports: [
     HomeComponent,
-    AuthComponent
+    AuthComponent,
+    NavbarComponent,
   ]
 })
 export class CoreModule { }

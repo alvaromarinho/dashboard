@@ -8,7 +8,6 @@ import { Observable } from '../../node_modules/rxjs';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'app';
     authenticated: Observable<boolean>;
 
     constructor(private authService: AuthService) { }

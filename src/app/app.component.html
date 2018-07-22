@@ -1,15 +1,26 @@
-<div *ngIf="(authenticated | async)">
-    <ul>
-        <li>
-            <a routerLink="/">home</a>
-        </li>
-        <li>
-            <a routerLink="/post">post</a>
-        </li>
-        <li>
-            <a routerLink="/logout">logout</a>
-        </li>
-    </ul>
-</div>
-
-<router-outlet></router-outlet>
+<app-navbar *ngIf="(authenticated | async)"></app-navbar>
+<section class="columns is-fullheight">
+    <aside *ngIf="(authenticated | async)" class="sidebar menu column is-2 is-narrow is-fullheight is-hidden-touch">
+        <ul class="menu-list">
+            <li>
+                <a routerLink="/">
+                    <span class="icon">
+                        <i class="fa fa-fw fa-home"></i>
+                    </span>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/post">
+                    <span class="icon">
+                        <i class="fa fa-fw fa-th-list"></i>
+                    </span>
+                    <span>Post</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <div class="main column has-background-light">
+        <router-outlet></router-outlet>
+    </div>
+</section>
