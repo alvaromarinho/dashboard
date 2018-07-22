@@ -1,6 +1,6 @@
 <app-navbar *ngIf="(authenticated | async)"></app-navbar>
-<section class="columns is-fullheight">
-    <aside *ngIf="(authenticated | async)" class="sidebar menu column is-2 is-narrow is-fullheight is-hidden-touch">
+<section class="columns is-fullheight m-0">
+    <aside *ngIf="(authenticated | async)" class="menu sidebar column is-2 is-narrow is-fullheight is-hidden-touch">
         <ul class="menu-list">
             <li>
                 <a routerLink="/">
@@ -20,7 +20,7 @@
             </li>
         </ul>
     </aside>
-    <div class="main column has-background-light">
+    <div class="column has-background-light ">
         <router-outlet></router-outlet>
     </div>
 </section>
