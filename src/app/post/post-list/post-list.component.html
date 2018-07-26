@@ -5,7 +5,8 @@
     <div class="card-content">
         <div class="field">
             <a class="button is-link" routerLink="new">
-                <i class="fa fa-fw fa-plus"></i>New Post</a>
+                <i class="fa fa-fw fa-plus"></i>New Post
+            </a>
         </div>
         <table class="table is-hoverable is-fullwidth">
             <thead>
@@ -27,11 +28,22 @@
                     <td>{{ post.date | date:'dd/MM/yyyy' }}</td>
                     <td>
                         <a class="button is-outlined is-small is-info" [routerLink]="['view', post.id]">
-                            <i class="fa fa-fw fa-eye"></i></a>
+                            <i class="fa fa-fw fa-eye"></i>
+                        </a>
                         <a class="button is-outlined is-small is-success mx-2" [routerLink]="['edit', post.id]">
-                            <i class="fa fa-fw fa-pencil"></i></a>
-                        <a class="button is-outlined is-small is-danger">
-                            <i class="fa fa-fw fa-trash"></i></a>
+                            <i class="fa fa-fw fa-pencil"></i>
+                        </a>
+                        <app-modal #modal buttonIcon="trash" buttonClass="is-outlined is-small is-danger">
+                            <div class="message is-danger">
+                                <div class="message-header">
+                                    <p>Do you want to delete the record #{{post.id}}?</p>
+                                </div>
+                                <div class="message-body has-text-right">
+                                    <button class="button is-danger mr-2" (click)="delete(post.id, modal)">Delete</button>
+                                    <button class="button" (click)="modal.launch()">Cancel</button>
+                                </div>
+                            </div>
+                        </app-modal>
                     </td>
                 </tr>
             </tbody>

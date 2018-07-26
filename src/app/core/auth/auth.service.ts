@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SERVER_API_URL } from '../../app.constants';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    private url = 'http://alvaromarinho.com.br/projetos/api/v1/auth';
+    private url = SERVER_API_URL + 'auth';
     private authenticated = new BehaviorSubject<boolean>(this.hasToken());
     
     constructor(

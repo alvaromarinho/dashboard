@@ -1,0 +1,12 @@
+<div class="modal {{active}}">
+    <div class="modal-background" (click)="launch()"></div>
+    <div class="modal-content w-auto">
+        <ng-content></ng-content>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="launch()"></button>
+</div>
+
+<a class="button {{buttonClass}}" (click)="launch()">
+    <i *ngIf="buttonIcon" class="fa fa-fw fa-{{buttonIcon}}"></i>
+    <span *ngIf="buttonLabel">{{buttonLabel}}</span>
+</a>

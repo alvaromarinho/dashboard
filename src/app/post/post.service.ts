@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
+import { SERVER_API_URL } from '../app.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class PostService {
         private http: HttpClient,
     ) { }
 
-    private url = 'http://alvaromarinho.com.br/projetos/api/v1/posts';
+    private url = SERVER_API_URL + 'posts';
 
     read(): Observable<any> {
         return this.http.get(this.url).pipe(

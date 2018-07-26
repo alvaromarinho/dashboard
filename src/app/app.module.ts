@@ -17,7 +17,7 @@ import { AuthGuard, AuthInterceptor } from './core';
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     ],
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,

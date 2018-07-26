@@ -19,4 +19,9 @@ export class PostListComponent implements OnInit {
         )
     }
 
+    delete(id, modal) {
+        alert('delete: ' + id);
+        modal.launch();
+    }
+
 }
