@@ -15,8 +15,9 @@ export class PostService {
 
     private url = SERVER_API_URL + 'posts';
 
-    read(): Observable<any> {
-        return this.http.get(this.url).pipe(
+    read(key?: any): Observable<any> {
+        const id = key ? '/' + key : '';
+        return this.http.get(this.url + id).pipe(
             map((res: any) => res = res.data),
             catchError(this.handleError<any>())
         );

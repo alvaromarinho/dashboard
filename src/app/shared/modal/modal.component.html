@@ -6,7 +6,7 @@
     <button class="modal-close is-large" aria-label="close" (click)="launch()"></button>
 </div>
 
-<a class="button {{buttonClass}}" (click)="launch()">
-    <i *ngIf="buttonIcon" class="fa fa-fw fa-{{buttonIcon}}"></i>
+<a class="button {{buttonClass}}" [ngClass]="{'tooltip':tooltip}" (click)="launch()" [attr.data-tooltip]="tooltip">
+    <span *ngIf="buttonIcon" class="icon"><i class="fa fa-fw fa-{{buttonIcon}}"></i></span>
     <span *ngIf="buttonLabel">{{buttonLabel}}</span>
 </a>

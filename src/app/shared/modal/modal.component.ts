@@ -12,6 +12,7 @@ export class ModalComponent implements OnInit {
     @Input() buttonClass: string;
     @Input() buttonIcon: string;
     @Input() buttonLabel: string;
+    @Input() tooltip: string;
 
     constructor() { }
 
