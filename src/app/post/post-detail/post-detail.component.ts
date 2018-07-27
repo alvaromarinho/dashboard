@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '../../../../node_modules/@angular/router';
+import { Post } from '../post.model';
 
 @Component({
     selector: 'app-post-detail',
@@ -9,14 +10,14 @@ import { ActivatedRoute } from '../../../../node_modules/@angular/router';
 })
 export class PostDetailComponent implements OnInit {
 
-    post: any;
+    post: Post;
 
     constructor(private postService: PostService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((params) => {
             this.postService.read(params.id).subscribe(
-                (res: any) => this.post = res[0],
+                (res: Post[]) => this.post = res[0],
                 (err: any) => console.error(err)
             )
         });

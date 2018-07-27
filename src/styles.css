@@ -6,10 +6,6 @@ html, body {
     margin: -.75rem;
 }
 
-.sidebar {
-    border-right: 1px solid #ddd;
-}
-
 /* BULMA MODIFIED */
 .menu-list a:hover {color: #00d1b2}
 .is-fullheight.columns {height:calc(100vh - (3.25rem - .75rem))}

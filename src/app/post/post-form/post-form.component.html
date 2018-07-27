@@ -1,3 +1,10 @@
-<p>
-  post-form works!
-</p>
+<div *ngIf="!post" class="icon w-100 my-3">
+    <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+</div>
+<div *ngIf="post">
+    <div class="card">
+        <div class="card-content">
+            form
+        </div>
+    </div>
+</div>

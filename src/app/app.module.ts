@@ -5,7 +5,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { PostModule } from './post/post.module';
 
@@ -23,7 +22,6 @@ import { AuthGuard, AuthInterceptor } from './core';
         BrowserModule,
         AppRoutingModule,
         CoreModule,
-        SharedModule,
         PostModule
     ],
     bootstrap: [AppComponent]
