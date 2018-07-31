@@ -4,7 +4,58 @@
 <div *ngIf="post">
     <div class="card">
         <div class="card-content">
-            form
+            <form (ngSubmit)="submit()" #form="ngForm">
+                <h1 class="title">New Post</h1>
+                <hr>
+                <div class="columns">
+                    <div class="column is-8">
+                        <div class="field required">
+                            <label class="label">Title</label>
+                            <div class="control">
+                                <input class="input" type="text" name="title" autocomplete="off" [(ngModel)]="post.title" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field required">
+                            <label class="label">Situation</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="situation_id" [(ngModel)]="post.situation_id" required>
+                                        <option [value]="1">Ativo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field required">
+                            <label class="label">Content</label>
+                            <div class="control">
+                                <textarea class="textarea" name="content" [(ngModel)]="post.content" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="columns is-vcentered">
+                    <div class="column is-narrow">
+                        <button type="submit" class="button is-success mr-2" [disabled]="form.invalid">
+                            <span class="icon"><i class="fa fa-save"></i></span>
+                            <span>Save</span>
+                        </button>
+                        <a class="button is-warning" routerLink="/post">
+                            <span class="icon"><i class="fa fa-angle-double-left"></i></span>
+                            <span>Back</span>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <span class="has-text-danger" *ngIf="form.invalid">Preencha todos os campos obrigatórios!</span>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

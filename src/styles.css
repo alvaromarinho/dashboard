@@ -6,6 +6,12 @@ html, body {
     margin: -.75rem;
 }
 
+.required label:after {
+    color: #ff3860;
+    content: ' *';
+    display:inline;
+}
+
 /* BULMA MODIFIED */
 .menu-list a:hover {color: #00d1b2}
 .is-fullheight.columns {height:calc(100vh - (3.25rem - .75rem))}

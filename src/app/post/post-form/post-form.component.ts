@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Post } from '../post.model';
+import { AuthService } from '../../core';
 
 @Component({
     selector: 'app-post-form',
@@ -8,12 +10,18 @@ import { Post } from '../post.model';
 })
 export class PostFormComponent implements OnInit {
 
-    post: Post;
+    post: Post = new Post();
 
-    constructor() { }
+    constructor(private authService: AuthService, private datePipe: DatePipe) { }
 
     ngOnInit() {
-        this.post = new Post();
+        this.post = Object.assign(new Post(), {
+            user_id: this.authService.getStorage('id'),
+            date: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
+        });
+    }
+    
+    submit() {
         console.log(this.post);
     }
 

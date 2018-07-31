@@ -2,31 +2,30 @@
     <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 </div>
 <div *ngIf="post">
-    <div class="card mb-2">
+    <div class="card">
         <div class="card-content">
-            <div class="container w-100">
-                <div class="columns is-vcentered">
-                    <div class="column">
-                        <h1 class="title">{{'#' + post.id + ' - ' + post.title}}</h1>
-                    </div>
-                    <div class="column is-narrow">
-                        {{post.date | date:'dd/MM/yyyy'}}
-                    </div>
+            <div class="columns m-0 is-vcentered">
+                <div class="column p-0">
+                    <h1 class="title">{{'#' + post.id + ' - ' + post.title}}</h1>
                 </div>
-                <div class="columns">
-                    <div class="column">
-                        <div [innerHTML]="post.content"></div>
-                    </div>
+                <div class="column p-0 is-narrow">
+                    {{post.date | date:'dd/MM/yyyy'}}
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-content py-3">
-            <a class="button is-warning" routerLink="/post">
-                <span class="icon"><i class="fa fa-angle-double-left"></i></span>
-                <span>Back</span>
-            </a>
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <div [innerHTML]="post.content"></div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <a class="button is-warning" routerLink="/post">
+                        <span class="icon"><i class="fa fa-angle-double-left"></i></span>
+                        <span>Back</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

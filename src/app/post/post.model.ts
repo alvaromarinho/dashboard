@@ -5,6 +5,6 @@ export class Post {
         situation_id?: number,
         title?: string,
         content?: string,
-        date?: Date,
+        date?: string,
     ) { }
 }

@@ -12,12 +12,16 @@ import { SERVER_API_URL } from '../../app.constants';
 export class AuthService {
 
     private url = SERVER_API_URL + 'auth';
-    private authenticated = new BehaviorSubject<boolean>(this.hasToken());
-    
+    private authenticated = new BehaviorSubject<boolean>(this.hasStorage());
+
     constructor(
         private http: HttpClient,
         private router: Router
     ) { }
+
+    get isAuthenticated() {
+        return this.authenticated.asObservable();
+    }
 
     auth(username: string, password: string): Observable<any> {
         const form = new FormData();
@@ -25,7 +29,7 @@ export class AuthService {
         form.set('password', password);
         return this.http.post(this.url, form).pipe(
             map((res: any) => {
-                this.setToken(res.data.Authtoken);
+                this.setStorage(res.data);
                 this.authenticated.next(true);
                 return res.message;
             }),
@@ -34,25 +38,26 @@ export class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('DAT');
+        localStorage.removeItem('DAD');
         this.authenticated.next(false);
         this.router.navigate(['/auth']);
     }
 
-    getToken() {
-        return localStorage.getItem('DAT');
+    hasStorage(): boolean {
+        return !!localStorage.getItem('DAD');
     }
 
-    hasToken(): boolean {
-        return !!localStorage.getItem('DAT');
+    getStorage(key) {
+        const storage = JSON.parse(atob(localStorage.getItem('DAD')));
+        return storage[key] || null;
     }
 
-    get isAuthenticated() {
-        return this.authenticated.asObservable();
-    }
-
-    private setToken(string: string) {
-        localStorage.setItem('DAT', string);
+    private setStorage(data: any) {
+        const storage = {
+            id: data.id,
+            token: data.Authtoken
+        }
+        localStorage.setItem('DAD', btoa(JSON.stringify(storage)));
     }
 
     private handleError<T>(result?: T) {

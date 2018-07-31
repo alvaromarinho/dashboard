@@ -10,9 +10,9 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.authService.hasToken()) {
+        if (this.authService.hasStorage()) {
             request = request.clone({
-                setHeaders: { Authtoken: this.authService.getToken() }
+                setHeaders: { Authtoken: this.authService.getStorage('token') }
             });
         }
         return next.handle(request).pipe(
@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     this.authService.logout();
                 }
 
-                const error = err.error.message || err.statusText;
+                const error = err.error.message || err.statusText || err;
                 return throwError(error);
             })
         )
