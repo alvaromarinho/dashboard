@@ -16,15 +16,44 @@ export class PostService {
 
     private url = SERVER_API_URL + 'posts/';
 
+    create(post: Post): Observable<Post> {
+        const form = this.convertItemToServer(post);
+        return this.http.post(this.url, form).pipe(
+            map((res: any) => {
+                console.log(res)
+            }),
+            catchError(this.handleError<any>())
+        )
+    }
+
     read(id?: any): Observable<Post[]> {
         const params = id || '';
         return this.http.get(this.url + params).pipe(
-            map((res: any) => this.convert(res.data)),
+            map((res: any) => this.convertItemFromServer(res.data)),
             catchError(this.handleError<any>())
         );
     }
 
-    private convert(json: any): Post {
+    update(post: Post): Observable<Post> {
+        const form = this.convertItemToServer(post);
+        return this.http.put(this.url, form).pipe(
+            map((res: any) => {
+                console.log(res)
+            }),
+            catchError(this.handleError<any>())
+        )
+    }
+
+    private convertItemToServer(post: Post) {
+        const form = new FormData();
+        Object.keys(post).forEach((key) => form.set(key, post[key]));
+        return form;
+    }
+
+    private convertItemFromServer(json: any): Post {
+        if (json.length === 1) {
+            return Object.assign(new Post(), json[0])
+        }
         const result = [];
         for (let i = 0; i < json.length; i++) {
             result.push(Object.assign(new Post(), json[i]));

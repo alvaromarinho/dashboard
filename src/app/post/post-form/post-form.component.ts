@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { Post } from '../post.model';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core';
 import { SituationService } from '../../shared/services/situation.service';
+import { Post } from '../post.model';
+import { PostService } from '../post.service';
 
 @Component({
     selector: 'app-post-form',
@@ -11,28 +13,42 @@ import { SituationService } from '../../shared/services/situation.service';
 })
 export class PostFormComponent implements OnInit {
 
-    post: Post = new Post();
+    post: Post;
     situations: any = [];
 
     constructor(
-        private authService: AuthService, 
+        private authService: AuthService,
         private situationService: SituationService,
+        private postService: PostService,
+        private activatedRoute: ActivatedRoute,
         private datePipe: DatePipe
     ) { }
 
     ngOnInit() {
-        this.post = Object.assign(new Post(), {
-            user_id: this.authService.getStorage('id'),
-            date: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
-        });
+        if (this.activatedRoute.snapshot.params.id) {
+            this.postService.read(this.activatedRoute.snapshot.params.id).subscribe((res: Post) => this.post = res);
+        } else {
+            this.post = Object.assign(new Post(), {
+                user_id: this.authService.getStorage('id'),
+                date: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
+            });
+        }
 
         this.situationService.read('posts').subscribe((res) => {
             this.situations = res;
         });
     }
-    
+
     submit() {
-        console.log(this.post);
+        if ('id' in this.post) {
+            this.postService.update(this.post).subscribe(
+                (res: any) => console.log('>', res)
+            )
+        } else {
+            this.postService.create(this.post).subscribe(
+                (res: any) => console.log('>', res)
+            )
+        }
     }
 
 }
