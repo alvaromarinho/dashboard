@@ -19,9 +19,7 @@ export class PostService {
     create(post: Post): Observable<Post> {
         const form = this.convertItemToServer(post);
         return this.http.post(this.url, form).pipe(
-            map((res: any) => {
-                console.log(res)
-            }),
+            map((res: any) => this.convertItemFromServer(res.data)),
             catchError(this.handleError<any>())
         )
     }
@@ -37,18 +35,13 @@ export class PostService {
     update(post: Post): Observable<Post> {
         const form = this.convertItemToServer(post);
         return this.http.put(this.url, form).pipe(
-            map((res: any) => {
-                console.log(res)
-            }),
+            map((res: any) => this.convertItemFromServer(res.data)),
             catchError(this.handleError<any>())
         )
     }
 
     delete(id: number): Observable<Post> {
         return this.http.delete(this.url + id).pipe(
-            map((res: any) => {
-                console.log(res)
-            }),
             catchError(this.handleError<any>())
         )
     }

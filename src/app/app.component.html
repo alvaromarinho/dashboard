@@ -25,6 +25,6 @@
             <button class="delete" (click)="clear()"></button>
             {{message}}
         </div>
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="clear()"></router-outlet>
     </div>
 </section>
