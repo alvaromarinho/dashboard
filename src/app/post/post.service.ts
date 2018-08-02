@@ -44,6 +44,15 @@ export class PostService {
         )
     }
 
+    delete(id: number): Observable<Post> {
+        return this.http.delete(this.url + id).pipe(
+            map((res: any) => {
+                console.log(res)
+            }),
+            catchError(this.handleError<any>())
+        )
+    }
+
     private convertItemToServer(post: Post) {
         const form = new FormData();
         Object.keys(post).forEach((key) => form.set(key, post[key]));

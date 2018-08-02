@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { PostModule } from './post/post.module';
 
 import { AuthGuard, AuthInterceptor } from './core';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     providers: [
@@ -21,6 +22,7 @@ import { AuthGuard, AuthInterceptor } from './core';
     imports: [
         BrowserModule,
         AppRoutingModule,
+        SharedModule,
         CoreModule,
         PostModule
     ],

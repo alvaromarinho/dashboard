@@ -21,6 +21,10 @@
         </ul>
     </aside>
     <div class="column">
+        <div class="notification is-{{class}}" *ngIf="message">
+            <button class="delete" (click)="clear()"></button>
+            {{message}}
+        </div>
         <router-outlet></router-outlet>
     </div>
 </section>

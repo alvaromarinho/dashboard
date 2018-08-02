@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
     selector: 'app-post-list',
@@ -10,7 +11,7 @@ export class PostListComponent implements OnInit {
 
     posts: any;
 
-    constructor(private postService: PostService) { }
+    constructor(private postService: PostService, private alertService: AlertService) { }
 
     ngOnInit() {
         this.postService.read().subscribe(
@@ -20,7 +21,10 @@ export class PostListComponent implements OnInit {
     }
 
     delete(id, modal) {
-        alert('delete: ' + id);
+        this.postService.delete(id).subscribe(
+            () => this.alertService.sendMessage('Post #' + id + ' deleted!', 'danger'),
+            (err: any) => console.error(err)
+        );
         modal.launch();
     }
 
