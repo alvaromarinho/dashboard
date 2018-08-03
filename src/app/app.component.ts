@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             if (data) {
                 this.message = data.text;
                 this.class = data.class
+                setTimeout(() => this.clear(), 3000);
             }
         });
     }

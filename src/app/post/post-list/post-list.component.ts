@@ -28,11 +28,16 @@ export class PostListComponent implements OnInit {
     }
 
     loadAll() {
-        this.filtered = false;
         this.postService.read().subscribe((res: Post[]) => {
             this.posts = res
             this.setPage(1);
         }, (err) => console.error(err));
+    }
+    
+    clean() {
+        this.filtered = false;
+        this.search = '';
+        this.loadAll();
     }
 
     filter() {
@@ -49,7 +54,7 @@ export class PostListComponent implements OnInit {
     delete(id, modal) {
         this.postService.delete(id).subscribe(() => {
             this.alertService.sendMessage('Post #' + id + ' deleted!', 'danger');
-            this.pagedItems = this.posts.filter((elem: any) => elem.id !== id);
+            this.loadAll();
         }, (err: any) => console.error(err));
         modal.launch();
     }
