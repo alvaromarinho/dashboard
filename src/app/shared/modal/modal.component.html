@@ -7,6 +7,6 @@
 </div>
 
 <a class="button {{buttonClass}}" [ngClass]="{'tooltip':tooltip}" (click)="launch()" [attr.data-tooltip]="tooltip">
-    <span *ngIf="buttonIcon" class="icon"><i class="fa fa-fw fa-{{buttonIcon}}"></i></span>
+    <span *ngIf="buttonIcon" class="icon"><i class="fa fa-{{buttonIcon}}"></i></span>
     <span *ngIf="buttonLabel">{{buttonLabel}}</span>
 </a>

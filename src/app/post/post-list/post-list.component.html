@@ -1,15 +1,37 @@
 <div *ngIf="!posts" class="icon w-100 my-3">
-    <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
 </div>
 <div *ngIf="posts" class="card">
     <div class="card-content">
-        <div class="field">
-            <a class="button is-link" routerLink="new">
-                <span class="icon">
-                    <i class="fa fa-fw fa-plus"></i>
-                </span>
-                <span>New Post</span>
-            </a>
+
+        <div class="level mb-3">
+            <div class="level-left">
+                <div class="level-item">
+                    <a class="button is-link" routerLink="new">
+                        <span class="icon"><i class="fa fa-plus"></i></span>
+                        <span>New Post</span>
+                    </a>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Find a post" [(ngModel)]="search">
+                        </div>
+                        <div class="control" *ngIf="!filtered">
+                            <button class="button is-info" (click)="filter()">
+                                <span class="icon"><i class="fa fa-search"></i></span>
+                            </button>
+                        </div>
+                        <div class="control" *ngIf="filtered">
+                            <button class="button is-danger" (click)="loadAll()">
+                                <span class="icon"><i class="fa fa-times"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <table class="table is-hoverable is-fullwidth">
@@ -33,12 +55,12 @@
                     <td>
                         <a class="button is-outlined is-small is-info tooltip" [routerLink]="['view', post.id]" data-tooltip="View">
                             <span class="icon">
-                                <i class="fa fa-fw fa-eye"></i>
+                                <i class="fa fa-eye"></i>
                             </span>
                         </a>
                         <a class="button is-outlined is-small is-success tooltip mx-2" [routerLink]="['edit', post.id]" data-tooltip="Edit">
                             <span class="icon">
-                                <i class="fa fa-fw fa-pencil"></i>
+                                <i class="fa fa-pencil"></i>
                             </span>
                         </a>
                         <app-modal #modal buttonIcon="trash" buttonClass="is-outlined is-small is-danger" tooltip="Delete">

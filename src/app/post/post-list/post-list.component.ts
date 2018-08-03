@@ -14,6 +14,8 @@ export class PostListComponent implements OnInit {
     posts: Post[];
     pagination: any = {};
     pagedItems: any[];
+    search: string;
+    filtered: boolean;
 
     constructor(
         private postService: PostService,
@@ -22,10 +24,21 @@ export class PostListComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.loadAll();
+    }
+
+    loadAll() {
+        this.filtered = false;
         this.postService.read().subscribe((res: Post[]) => {
             this.posts = res
             this.setPage(1);
         }, (err) => console.error(err));
+    }
+
+    filter() {
+        this.posts = this.posts.filter((elem: any) => elem.title.toLowerCase().includes(this.search.toLowerCase()));
+        this.setPage(1);
+        this.filtered = true;
     }
 
     setPage(page: number) {
@@ -36,9 +49,7 @@ export class PostListComponent implements OnInit {
     delete(id, modal) {
         this.postService.delete(id).subscribe(() => {
             this.alertService.sendMessage('Post #' + id + ' deleted!', 'danger');
-            this.posts = this.posts.filter((elem: any) => {
-                return elem.id !== id;
-            });
+            this.pagedItems = this.posts.filter((elem: any) => elem.id !== id);
         }, (err: any) => console.error(err));
         modal.launch();
     }
