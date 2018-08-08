@@ -20,15 +20,21 @@ export class TagService {
     create(post: Tag): Observable<Tag> {
         const form = this.convertItemToServer(post);
         return this.http.post(this.url, form).pipe(
-            map((res: any) => this.convertItemFromServer(res.data)),
+            map((res: any) => {console.log(res);this.convertItemFromServer(res.data, false)}),
             catchError(this.handleError<any>())
         )
     }
 
-    read(id?: any): Observable<Tag[]> {
-        const params = id || '';
-        return this.http.get(this.url + params).pipe(
-            map((res: any) => this.convertItemFromServer(res.data)),
+    all(): Observable<Tag[]> {
+        return this.http.get(this.url).pipe(
+            map((res: any) => this.convertItemFromServer(res.data, true)),
+            catchError(this.handleError<any>())
+        );
+    }
+
+    find(id?: any): Observable<Tag[]> {
+        return this.http.get(this.url + id).pipe(
+            map((res: any) => this.convertItemFromServer(res.data, false)),
             catchError(this.handleError<any>())
         );
     }
@@ -36,7 +42,7 @@ export class TagService {
     update(post: Tag): Observable<Tag> {
         const form = this.convertItemToServer(post);
         return this.http.put(this.url, form).pipe(
-            map((res: any) => this.convertItemFromServer(res.data)),
+            map((res: any) => this.convertItemFromServer(res.data, false)),
             catchError(this.handleError<any>())
         )
     }
@@ -53,8 +59,8 @@ export class TagService {
         return form;
     }
 
-    private convertItemFromServer(json: any): Tag {
-        if (json.length === 1) {
+    private convertItemFromServer(json: any, isArray: boolean): Tag {
+        if (json.length === 1 && isArray === false) {
             return Object.assign(new Tag(), json[0])
         }
         const result = [];
