@@ -28,7 +28,7 @@ export class PostListComponent implements OnInit {
     }
 
     loadAll() {
-        this.postService.read().subscribe((res: Post[]) => {
+        this.postService.all().subscribe((res: Post[]) => {
             this.posts = res
             this.setPage(1);
         }, (err) => console.error(err));

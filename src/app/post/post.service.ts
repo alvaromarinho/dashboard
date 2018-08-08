@@ -19,15 +19,21 @@ export class PostService {
     create(post: Post): Observable<Post> {
         const form = this.convertItemToServer(post);
         return this.http.post(this.url, form).pipe(
-            map((res: any) => this.convertItemFromServer(res.data)),
+            map((res: any) => this.convertItemFromServer(res.data, false)),
             catchError(this.handleError<any>())
         )
     }
 
-    read(id?: any): Observable<Post[]> {
-        const params = id || '';
-        return this.http.get(this.url + params).pipe(
-            map((res: any) => this.convertItemFromServer(res.data)),
+    all(): Observable<Post[]> {
+        return this.http.get(this.url).pipe(
+            map((res: any) => this.convertItemFromServer(res.data, false)),
+            catchError(this.handleError<any>())
+        );
+    }
+
+    find(id?: any): Observable<Post[]> {
+        return this.http.get(this.url + id).pipe(
+            map((res: any) => this.convertItemFromServer(res.data, false)),
             catchError(this.handleError<any>())
         );
     }
@@ -35,7 +41,7 @@ export class PostService {
     update(post: Post): Observable<Post> {
         const form = this.convertItemToServer(post);
         return this.http.put(this.url, form).pipe(
-            map((res: any) => this.convertItemFromServer(res.data)),
+            map((res: any) => this.convertItemFromServer(res.data, false)),
             catchError(this.handleError<any>())
         )
     }
@@ -52,8 +58,8 @@ export class PostService {
         return form;
     }
 
-    private convertItemFromServer(json: any): Post {
-        if (json.length === 1) {
+    private convertItemFromServer(json: any, isArray: boolean): Post {
+        if (json.length === 1 && isArray === false) {
             return Object.assign(new Post(), json[0])
         }
         const result = [];

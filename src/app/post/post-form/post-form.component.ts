@@ -29,7 +29,7 @@ export class PostFormComponent implements OnInit {
 
     ngOnInit() {
         if (this.activatedRoute.snapshot.params.id) {
-            this.postService.read(this.activatedRoute.snapshot.params.id).subscribe((res: Post) => this.post = res);
+            this.postService.find(this.activatedRoute.snapshot.params.id).subscribe((res: Post) => this.post = res);
         } else {
             this.post = Object.assign(new Post(), {
                 user_id: this.authService.getStorage('id'),
