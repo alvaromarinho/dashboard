@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { PostListComponent, PostFormComponent, PostService, PostDetailComponent } from './';
+import { TagService, TagListComponent, TagFormComponent } from './';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     providers: [
-        PostService,
+        TagService,
         DatePipe,
     ],
     imports: [
@@ -18,16 +18,15 @@ import { SharedModule } from '../shared/shared.module';
         AppRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,
-        SharedModule
+        SharedModule,
     ],
     declarations: [
-        PostListComponent,
-        PostFormComponent,
-        PostDetailComponent,
+        TagListComponent,
+        TagFormComponent,
     ],
     exports: [
-        PostListComponent,
-        PostFormComponent,
+        TagListComponent,
+        TagFormComponent,
     ]
 })
-export class PostModule { }
+export class TagModule { }
