@@ -1,3 +1,5 @@
+import { Tag } from "../tag";
+
 export class Post {
     constructor(
         id?: number,
@@ -6,5 +8,6 @@ export class Post {
         title?: string,
         content?: string,
         date?: string,
+        tags?: Tag[],
     ) { }
 }

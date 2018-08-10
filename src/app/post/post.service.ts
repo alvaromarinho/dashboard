@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { SERVER_API_URL } from '../app.constants';
 import { Post } from './post.model';
@@ -19,36 +19,36 @@ export class PostService {
     create(post: Post): Observable<Post> {
         const form = this.convertItemToServer(post);
         return this.http.post(this.url, form).pipe(
-            map((res: any) => this.convertItemFromServer(res.data, false)),
-            catchError(this.handleError<any>())
+            map((res: any) => this.convertItemFromServer(res.data)),
+            catchError((error) => throwError(error))
         )
     }
 
-    all(): Observable<Post[]> {
+    all(): Observable<any> {
         return this.http.get(this.url).pipe(
-            map((res: any) => this.convertItemFromServer(res.data, false)),
-            catchError(this.handleError<any>())
+            map((res: any) => this.convertItemFromServer(res.data, true)),
+            catchError((error: any) => throwError(error))
         );
     }
 
-    find(id?: any): Observable<Post[]> {
+    find(id?: any): Observable<Post> {
         return this.http.get(this.url + id).pipe(
-            map((res: any) => this.convertItemFromServer(res.data, false)),
-            catchError(this.handleError<any>())
+            map((res: any) => this.convertItemFromServer(res.data)),
+            catchError((error) => throwError(error))
         );
     }
 
     update(post: Post): Observable<Post> {
         const form = this.convertItemToServer(post);
         return this.http.put(this.url, form).pipe(
-            map((res: any) => this.convertItemFromServer(res.data, false)),
-            catchError(this.handleError<any>())
+            map((res: any) => this.convertItemFromServer(res.data)),
+            catchError((error) => throwError(error))
         )
     }
 
     delete(id: number): Observable<Post> {
         return this.http.delete(this.url + id).pipe(
-            catchError(this.handleError<any>())
+            catchError((error) => throwError(error))
         )
     }
 
@@ -58,7 +58,7 @@ export class PostService {
         return form;
     }
 
-    private convertItemFromServer(json: any, isArray: boolean): Post {
+    private convertItemFromServer(json: any, isArray = false): Post {
         if (json.length === 1 && isArray === false) {
             return Object.assign(new Post(), json[0])
         }
@@ -67,12 +67,5 @@ export class PostService {
             result.push(Object.assign(new Post(), json[i]));
         }
         return result;
-    }
-
-    private handleError<T>(result?: T) {
-        return (httpError: HttpErrorResponse): Observable<T> => {
-            console.error(httpError);
-            return of(result as T);
-        };
     }
 }

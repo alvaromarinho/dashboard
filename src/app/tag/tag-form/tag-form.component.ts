@@ -30,19 +30,14 @@ export class TagFormComponent implements OnInit {
     }
 
     submit() {
-        if ('id' in this.tag) {
-            this.tagService.update(this.tag).subscribe(() => {
-                this.router.navigate(['/tag']).then(() => {
-                    this.alertService.sendMessage('Tag edited!', 'success');
-                });
-            })
-        } else {
-            this.tagService.create(this.tag).subscribe(() => {
-                this.router.navigate(['/tag']).then(() => {
-                    this.alertService.sendMessage('Tag created!', 'success');
-                });
-            })
-        }
+        const message = ('id' in this.tag) ? 'edited' : 'created';
+        const subscription = ('id' in this.tag) ? this.tagService.update(this.tag) : this.tagService.create(this.tag);
+
+        subscription.subscribe((res) => {
+            this.router.navigate(['/tag']).then(() => {
+                this.alertService.sendMessage('Tag ' + message + '!', 'success');
+            });
+        }, (err) => this.alertService.sendMessage(err, 'danger'))
     }
 
 }

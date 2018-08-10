@@ -6,6 +6,7 @@ import { SituationService } from '../../shared/services/situation.service';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 import { AlertService } from '../../shared/services/alert.service';
+import { TagService, Tag } from '../../tag';
 
 @Component({
     selector: 'app-post-form',
@@ -15,6 +16,7 @@ import { AlertService } from '../../shared/services/alert.service';
 export class PostFormComponent implements OnInit {
 
     post: Post;
+    tags: Tag[];
     situations: any = [];
 
     constructor(
@@ -22,6 +24,7 @@ export class PostFormComponent implements OnInit {
         private situationService: SituationService,
         private postService: PostService,
         private alertService: AlertService,
+        private tagService: TagService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private datePipe: DatePipe
@@ -37,25 +40,19 @@ export class PostFormComponent implements OnInit {
             });
         }
 
-        this.situationService.read('posts').subscribe((res) => {
-            this.situations = res;
-        });
+        this.tagService.all().subscribe((res: Tag[]) => this.tags = res);
+        this.situationService.read('posts').subscribe((res) => this.situations = res);
     }
 
     submit() {
-        if ('id' in this.post) {
-            this.postService.update(this.post).subscribe(() => {
-                this.router.navigate(['/post']).then(() => {
-                    this.alertService.sendMessage('Post edited!', 'success');
-                });
-            })
-        } else {
-            this.postService.create(this.post).subscribe(() => {
-                this.router.navigate(['/post']).then(() => {
-                    this.alertService.sendMessage('Post created!', 'success');
-                });
-            })
-        }
+        const message = ('id' in this.post) ? 'edited' : 'created';
+        const subscription = ('id' in this.post) ? this.postService.update(this.post) : this.postService.create(this.post);
+
+        subscription.subscribe((res) => {
+            this.router.navigate(['/post']).then(() => {
+                this.alertService.sendMessage('Post ' + message + '!', 'success');
+            });
+        }, (err) => this.alertService.sendMessage(err, 'danger'))
     }
 
 }

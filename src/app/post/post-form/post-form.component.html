@@ -8,7 +8,7 @@
                 <h1 class="title">New Post</h1>
                 <hr>
                 <div class="columns">
-                    <div class="column is-8">
+                    <div class="column is-6">
                         <div class="field required">
                             <label class="label">Title</label>
                             <div class="control">
@@ -23,6 +23,18 @@
                                 <div class="select is-fullwidth">
                                     <select name="situation_id" [(ngModel)]="post.situation_id" required>
                                         <option *ngFor="let situation of situations" [value]="situation.id">{{ situation.description }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field required">
+                            <label class="label">Tags</label>
+                            <div class="control">
+                                <div class="select is-multiple is-fullwidth">
+                                    <select name="tags" [(ngModel)]="post.tags" size="1" multiple required>
+                                        <option *ngFor="let tag of tags" [value]="tag">{{ tag.description }}</option>
                                     </select>
                                 </div>
                             </div>

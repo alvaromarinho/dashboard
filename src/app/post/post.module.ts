@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostListComponent, PostFormComponent, PostService, PostDetailComponent } from './';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { TagModule } from '../tag/tag.module';
 
 @NgModule({
     providers: [
@@ -18,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
         AppRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,
-        SharedModule
+        SharedModule,
+        TagModule,
     ],
     declarations: [
         PostListComponent,
