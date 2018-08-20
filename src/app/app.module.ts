@@ -11,6 +11,7 @@ import { PostModule } from './post/post.module';
 import { AuthGuard, AuthInterceptor } from './core';
 import { SharedModule } from './shared/shared.module';
 import { TagModule } from './tag/tag.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
     providers: [
@@ -27,6 +28,7 @@ import { TagModule } from './tag/tag.module';
         CoreModule,
         PostModule,
         TagModule,
+        UserModule,
     ],
     bootstrap: [AppComponent]
 })
