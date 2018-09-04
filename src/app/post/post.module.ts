@@ -26,10 +26,6 @@ import { TagModule } from '../tag/tag.module';
         PostListComponent,
         PostFormComponent,
         PostDetailComponent,
-    ],
-    exports: [
-        PostListComponent,
-        PostFormComponent,
     ]
 })
 export class PostModule { }

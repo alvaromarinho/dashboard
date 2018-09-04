@@ -2,12 +2,12 @@ import { Tag } from "../tag";
 
 export class Post {
     constructor(
-        id?: number,
-        user_id?: number,
-        situation_id?: number,
-        title?: string,
-        content?: string,
-        date?: string,
-        tags?: Tag[],
+        public id?: number,
+        public user_id?: number,
+        public situation_id?: number,
+        public title?: string,
+        public content?: string,
+        public date?: string,
+        public tags?: Tag[],
     ) { }
 }

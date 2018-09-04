@@ -1,3 +1,40 @@
-<p>
-  user-detail works!
-</p>
+<div *ngIf="!user" class="icon w-100 my-3">
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
+</div>
+<div *ngIf="user">
+    <div class="card">
+        <div class="card-content">
+            <div class="columns m-0 is-vcentered">
+                <div class="column p-0">
+                    <h1 class="title">{{'#' + user.id + ' - ' + user.name}}</h1>
+                </div>
+                <div class="column p-0 is-narrow">
+                    {{user.date | date:'dd/MM/yyyy'}}
+                </div>
+            </div>
+            <hr>
+            <div class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="{{ user.photo }}">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="field">
+                        <p class="control">
+                            {{ user.bio }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <a class="button is-warning" routerLink="/user">
+                        <span class="icon"><i class="fa fa-angle-double-left"></i></span>
+                        <span>Back</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

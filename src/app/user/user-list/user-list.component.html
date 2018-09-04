@@ -1,3 +1,89 @@
-<p>
-  user-list works!
-</p>
+<div *ngIf="!users" class="icon w-100 my-3">
+  <i class="fa fa-refresh fa-spin fa-3x"></i>
+</div>
+<div *ngIf="users" class="card">
+  <div class="card-content">
+
+      <div class="level mb-3">
+          <div class="level-left">
+              <div class="level-item">
+                  <a class="button is-link" routerLink="new">
+                      <span class="icon"><i class="fa fa-plus"></i></span>
+                      <span>New User</span>
+                  </a>
+              </div>
+          </div>
+          <div class="level-right">
+              <div class="level-item">
+                  <div class="field has-addons">
+                      <div class="control">
+                          <input class="input" type="text" placeholder="Find a user" [(ngModel)]="search" [disabled]="filtered">
+                      </div>
+                      <div class="control" *ngIf="!filtered">
+                          <button class="button is-info" (click)="filter()">
+                              <span class="icon"><i class="fa fa-search"></i></span>
+                          </button>
+                      </div>
+                      <div class="control" *ngIf="filtered">
+                          <button class="button is-danger" (click)="clean()">
+                              <span class="icon"><i class="fa fa-times"></i></span>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <table class="table is-hoverable is-fullwidth">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>USUÁRIO</th>
+                  <th>NOME</th>
+                  <th>SITUAÇÃO</th>
+                  <th>AÇÃO</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let user of pagedItems">
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.situation == 'A' ? 'Active' : 'Inactive' }}</td>
+                  <td>
+                      <a class="button is-outlined is-small is-info tooltip" [routerLink]="['view', user.id]" data-tooltip="View">
+                          <span class="icon">
+                              <i class="fa fa-eye"></i>
+                          </span>
+                      </a>
+                      <a class="button is-outlined is-small is-success tooltip mx-2" [routerLink]="['edit', user.id]" data-tooltip="Edit">
+                          <span class="icon">
+                              <i class="fa fa-pencil"></i>
+                          </span>
+                      </a>
+                      <app-modal #modal buttonIcon="trash" buttonClass="is-outlined is-small is-danger" tooltip="Delete">
+                          <div class="message is-danger">
+                              <div class="message-header">
+                                  <p>Do you want to delete the record #{{user.id}}?</p>
+                              </div>
+                              <div class="message-body has-text-right">
+                                  <button class="button is-danger mr-2" (click)="delete(user.id, modal)">Delete</button>
+                                  <button class="button" (click)="modal.launch()">Cancel</button>
+                              </div>
+                          </div>
+                      </app-modal>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+
+      <!-- pagination -->
+      <div class="buttons has-addons" *ngIf="pagination.pages && pagination.pages.length">
+          <button class="button" (click)="setPage(1)" [disabled]="pagination.currentPage === 1">First</button>
+          <button class="button" (click)="setPage(pagination.currentPage - 1)" [disabled]="pagination.currentPage === 1">Previous</button>
+          <span class="button" (click)="setPage(page)" *ngFor="let page of pagination.pages" [ngClass]="{'is-link':pagination.currentPage === page}">{{page}}</span>
+          <button class="button" (click)="setPage(pagination.currentPage + 1)" [disabled]="pagination.currentPage === pagination.totalPages">Next</button>
+          <button class="button" (click)="setPage(pagination.totalPages)" [disabled]="pagination.currentPage === pagination.totalPages">Last</button>
+      </div>
+  </div>
+</div>

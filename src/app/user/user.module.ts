@@ -1,13 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserFormComponent } from './user-form/user-form.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { UserListComponent, UserFormComponent, UserDetailComponent, UserService } from './';
+import { SharedModule } from '../shared/shared.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [UserListComponent, UserFormComponent, UserDetailComponent]
+    providers: [
+        UserService,
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        SharedModule,
+    ],
+    declarations: [
+        UserListComponent,
+        UserFormComponent,
+        UserDetailComponent
+    ]
 })
 export class UserModule { }

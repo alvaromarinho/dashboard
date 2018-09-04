@@ -1,7 +1,7 @@
 export class Tag {
     constructor(
-        id?: number,
-        description?: string,
-        situation?: string,
+        public id?: number,
+        public description?: string,
+        public situation?: string,
     ) { }
 }

@@ -63,7 +63,7 @@ export class TagService {
         if (json.length === 1 && isArray === false) {
             return Object.assign(new Tag(), json[0])
         }
-        const result = [];
+        const result: any = [];
         for (let i = 0; i < json.length; i++) {
             result.push(Object.assign(new Tag(), json[i]));
         }

@@ -23,10 +23,6 @@ import { SharedModule } from '../shared/shared.module';
     declarations: [
         TagListComponent,
         TagFormComponent,
-    ],
-    exports: [
-        TagListComponent,
-        TagFormComponent,
     ]
 })
 export class TagModule { }

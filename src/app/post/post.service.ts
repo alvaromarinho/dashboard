@@ -62,7 +62,7 @@ export class PostService {
         if (json.length === 1 && isArray === false) {
             return Object.assign(new Post(), json[0])
         }
-        const result = [];
+        const result: any = [];
         for (let i = 0; i < json.length; i++) {
             result.push(Object.assign(new Post(), json[i]));
         }

@@ -1,3 +1,107 @@
-<p>
-  user-form works!
-</p>
+<div *ngIf="!user" class="icon w-100 my-3">
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
+</div>
+<div *ngIf="user">
+    <div class="card">
+        <div class="card-content">
+            <form (ngSubmit)="submit()" #form="ngForm">
+                <h1 class="title">New User</h1>
+                <hr>
+                <div class="columns">
+                    <div class="column is-8">
+                        <div class="field required">
+                            <label class="label">Name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="name" autocomplete="off" [(ngModel)]="user.name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field required">
+                            <label class="label">Situation</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="situation" [(ngModel)]="user.situation" required>
+                                        <option [value]="'A'">Active</option>
+                                        <option [value]="'I'">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field required">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="username" autocomplete="off" [(ngModel)]="user.username" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" *ngIf="!user.id">
+                        <div class="field required">
+                            <label class="label">Password</label>
+                            <div class="control">
+                                <input class="input" type="password" name="password" autocomplete="off" [ngClass]="{'is-danger': !passwordCheck}" [(ngModel)]="user.password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" *ngIf="!user.id">
+                        <div class="field required">
+                            <label class="label">Repeat Password</label>
+                            <div class="control">
+                                <input class="input" type="password" name="repeat" autocomplete="off" [ngClass]="{'is-danger': !passwordCheck}" [(ngModel)]="repeatPass" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Bio</label>
+                            <div class="control">
+                                <textarea class="textarea" name="bio" [(ngModel)]="user.bio"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <label class="label">Photo</label>
+                        <div class="file has-name is-fullwidth">
+                            <label class="file-label">
+                                <input #file class="file-input" name="photo" type="file" (change)="photo($event)">
+                                <span class="file-cta">
+                                    <span class="file-icon"><i class="fa fa-upload"></i></span>
+                                    <span class="file-label">Choose a file…</span>
+                                </span>
+                                <span class="file-name">{{ file.value }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="columns is-vcentered">
+                    <div class="column is-narrow">
+                        <button type="submit" class="button is-success mr-2" [disabled]="form.invalid || !passwordCheck">
+                            <span class="icon">
+                                <i class="fa fa-save"></i>
+                            </span>
+                            <span>Save</span>
+                        </button>
+                        <a class="button is-warning" routerLink="/user">
+                            <span class="icon">
+                                <i class="fa fa-angle-double-left"></i>
+                            </span>
+                            <span>Back</span>
+                        </a>
+                    </div>
+                    <div class="column">
+                        <span class="has-text-danger" *ngIf="form.invalid || !passwordCheck">Preencha todos os campos obrigatórios!</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
